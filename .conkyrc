@@ -15,6 +15,8 @@ default_color white
 default_shade_color black
 default_outline_color blue
 
+# #A548CC
+
 #положение 
 alignment top_right
 
@@ -25,37 +27,45 @@ alignment top_right
 no_buffers no
 
 Text
-${color #A548CC}Date:${color}${font size=11} ${time %a %e %b %G}${font}
-${color #A548CC}Time:${color}${font size=11} ${time %I:%M:%p}${font}
-${color #A548CC}Uptime:${color} ${uptime}
-${color #A548CC}Kernel:${color} ${exec uname -r|cut -b1-9}
-${color #A548CC}Temp:${color} ${acpitemp}C 
-${color #A548CC}CPU:${color} ${freq_g}GHz (${cpu}%)
-${color #A548CC}
+${color #7777DD}Date:${color}${font size=11} ${time %a %e %b %G}${font}
+${color #7777DD}Time:${color}${font size=11} ${time %I:%M:%p}${font}
+${color #7777DD}Uptime:${color} ${uptime}
+${color #7777DD}Kernel:${color} ${exec uname -r|cut -b1-9}
+# sudo yum install lm_sensors
+# sudo sensors_detect; # all yes 
+# sensors
+# hddtemp
+# ${color #7777DD}Temp:${color} ${acpitemp}C 
+${color #7777DD}Core0:${color}${goto 90} ${exec sensors coretemp-isa-0000 | grep "Core 0" | tr -d " " | cut -f 2 -d : | cut -f 1 -d "(" }
+${color #7777DD}Core1:${color}${goto 90} ${exec sensors coretemp-isa-0000 | grep "Core 1" | tr -d " " | cut -f 2 -d : | cut -f 1 -d "(" }
+${color #7777DD}GpuT:${color} ${goto 90} ${exec sensors nouveau-pci-0100 | grep temp1 | tr -d " " | cut -f 2 -d : | cut -f 1 -d "(" }
+${color #7777DD}Mbrd1:${color}${goto 90} ${exec sensors f71882fg-isa-0a00 | grep temp1 | tr -d " " | cut -f 2 -d : | cut -f 1 -d "(" }
+${color #7777DD}Mbrd2:${color}${goto 90} ${exec sensors f71882fg-isa-0a00 | grep temp2 | tr -d " " | cut -f 2 -d : | cut -f 1 -d "(" }
+${color #7777DD}CPU:${color} ${freq_g}GHz (${cpu}%)
+${color #7777DD}
 
-${color #A548CC}Highest CPU:
-${color #ffffff}${top name 1} ${top cpu 1}%
-${color #ffffff}${top name 2} ${top cpu 2}%
-${color #ffffff}${top name 3} ${top cpu 3}%
+${color #7777DD}Highest CPU:
+${color #ffffff}${top name 1}${goto 90} ${top cpu 1}%
+${color #ffffff}${top name 2}${goto 90} ${top cpu 2}%
+${color #ffffff}${top name 3}${goto 90} ${top cpu 3}%
+${color #ffffff}${top name 4}${goto 90} ${top cpu 4}%
+${color #ffffff}${top name 5}${goto 90} ${top cpu 5}%
 
-${color #A548CC}MEM usage:    $memperc%
+${color #7777DD}MEM usage:    $memperc%
 ${color #ffffff}Used: $mem of $memmax
 
-${color #A548CC} SWAP usage: $swapperc% 
+${color #7777DD} SWAP usage: $swapperc% 
 ${color #ffffff}Used: $swap/$swapmax
 
-${color #A548CC}Network usage:
-${color ffffff} Up: ${upspeed wlan0}/s
-${upspeedgraph wlan0 20,140  000000 ffffff}
+${color #7777DD}Network usage:
+${color ffffff} Up: ${upspeed eth0}/s
+${upspeedgraph eth0 20,140  000000 ffffff}
 
-Down: ${downspeed wlan0}/s
-${downspeedgraph wlan0 20,140  000000 ffffff}
+Down: ${downspeed eth0}/s
+${downspeedgraph eth0 20,140  000000 ffffff}
 
-${color #A548CC}File systems:
+${color #7777DD}File systems:
 ${color ffffff} / ${fs_used /}/${fs_size /}
 ${fs_bar 3,140 /}
-Home ${fs_used /home/user/d}/${fs_size /home/user/d} 
-${fs_bar 3,140 /home/user/d}
-
-
-
+# Home ${fs_used /home/user/d}/${fs_size /home/user/d} 
+# ${fs_bar 3,140 /home/user/d}
